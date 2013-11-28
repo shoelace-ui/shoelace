@@ -1,0 +1,16 @@
+{
+  "name": "test",
+  "repo": "test/test",
+  "version": "0.1.0",
+  "dependencies": {
+    "component/dom": "*"
+  },
+  "main": "foo.js",
+  "scripts": [
+    "foo.js"
+  ],
+  "styles": [
+    "bar.styl"
+  ]
+}
+

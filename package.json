@@ -1,0 +1,32 @@
+{
+  "name": "shoelace",
+  "version": "0.1.0",
+  "description": "Shoelace project builder",
+  "main": "index.js",
+  "bin": {
+    "shoelace": "bin/shoelace.js"
+  },
+  "scripts": {
+    "test": "make test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mvanasse/shoelace.git"
+  },
+  "keywords": [
+    "shoelace"
+  ],
+  "author": "Michael Vanasse",
+  "license": "MIT",
+  "dependencies": {
+    "commander": "~2.0.0",
+    "component-builder": "~0.8.3",
+    "component-stylus": "~1.1.3",
+    "component": "~0.18.0"
+  },
+  "devDependencies": {
+    "should": "~2.1.0",
+    "mocha": "~1.14.0",
+    "rimraf": "~2.2.2"
+  }
+}
