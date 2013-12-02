@@ -1,0 +1,11 @@
+#!/usr/bin/env node
+
+/**
+ * Module dependencies.
+ */
+
+var program = require('commander');
+var fs = require('fs');
+
+// TODO implement this
+

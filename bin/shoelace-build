@@ -1,0 +1,95 @@
+#!/usr/bin/env node
+
+/**
+ * Module dependencies.
+ */
+
+var program = require('commander');
+var path = require('path');
+var resolve = require('path').resolve;
+var exists = require('fs').existsSync;
+var spawn = require('win-fork');
+var cwd = process.cwd();
+
+// options
+
+program
+  .option('-f, --filter <type>', 'exclude given types from builds');
+program.parse(process.argv)
+
+// cmd
+
+var cmd = program._name.split('-')[1];
+if (cmd === 'build') installBuild(child);
+if (cmd === 'install') child('install');
+
+/**
+ * Install components if necessary before building.
+ * @param {Function} fn
+ */
+
+function installBuild(fn) {
+  var componentsDir = resolve(cwd, 'components');
+  if (!exists(componentsDir)) {
+    return child('install').next(function() {
+      return build(fn);
+    });
+  }
+  build(fn);
+}
+
+/**
+ * Build arguments for standalone component build.
+ * @param {Function} fn
+ */
+
+function build(fn) {
+  var pkgPath = cwd + '/component.json';
+  if (!exists(pkgPath)) return log('error', 'no file or directory at ' + p);
+
+  var plugins = [];
+
+  /**
+   * This sucks, but works for now. We look for our component plugins
+   * (stylus isn't even an option) and load them into out component
+   * arguments.
+   */
+  ['stylus', 'filter'].forEach(function(plugin) {
+    if (plugin === 'filter') {
+      if (!program.filter) return;
+      var filter = program.filter;
+      plugin = plugin + '/' + filter;
+    }
+    plugins.push(path.relative(cwd, __dirname + '/../node_modules/component-' + plugin));
+  })
+
+  var arg = [cmd, '--standalone', require(pkgPath).name, '--use', plugins];
+
+  fn(arg);
+}
+
+/**
+ * Create and return child process.
+ * @param {String} cmd
+ * @param {Array} args
+ */
+
+function child(cmd) {
+  cmd = cmd || [];
+  var proc = spawn('component', [].concat(cmd), { stdio: 'inherit' });
+  proc.on('data', function(d) {
+    log('' + d);
+  });
+  proc.on('data', function(d) {
+    log('' + d);
+  });
+  proc.on('close', function(code) {
+    if (code === 0) return;
+    process.exit(code);
+  });
+  proc.next = function(fn) {
+    proc.on('close', fn);
+  };
+  return proc;
+}
+

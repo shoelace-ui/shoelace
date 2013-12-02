@@ -4,7 +4,9 @@
   "description": "Shoelace project builder",
   "main": "index.js",
   "bin": {
-    "shoelace": "bin/shoelace.js"
+    "shoelace": "bin/shoelace",
+    "shoelace-build": "bin/shoelace-build",
+    "shoelace-create": "bin/shoelace-create"
   },
   "scripts": {
     "test": "make test"

@@ -1,0 +1,62 @@
+#!/usr/bin/env node
+
+/**
+ * Module dependencies.
+ */
+
+var program = require('commander');
+var spawn = require('win-fork');
+var fs = require('fs');
+
+// usage
+
+program
+  .version(require('../package').version)
+  .usage('<command>');
+
+// sub-command help
+
+program.on('--help', function() {
+  console.log('  Commands:');
+  console.log();
+  console.log('    install       install local dependencies');
+  console.log('    build         build the project');
+  console.log();
+  process.exit();
+});
+
+// parse argv
+
+program.parse(process.argv);
+
+// args void of cmds
+
+var args = process.argv.slice(3);
+
+// command
+
+var cmd = program.args[0];
+
+// help
+
+if (!cmd) program.help();
+
+// alias install
+
+if (cmd === 'install') cmd = 'build';
+
+// cmds
+
+var local = 'shoelace-' + cmd;
+
+if (!fs.existsSync(__dirname + '/' + local))
+  return console.error('%s is not a shoelace command', cmd);
+
+// spawn new process
+
+var proc = spawn(local, args, {stdio: 'inherit'});
+
+proc.on('close', function(code) {
+  if (code === 0) return;
+  process.exit(code);
+});

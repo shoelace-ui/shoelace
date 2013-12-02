@@ -7,7 +7,7 @@ var exec = require('child_process').exec;
 var resolve = require('path').resolve;
 var fs = require('fs');
 
-describe('shoelace', function() {
+describe.skip('shoelace', function() {
 
   beforeEach(function() {
     process.chdir('test/fixtures');
@@ -47,6 +47,4 @@ describe('shoelace', function() {
       });
     });
   });
-
-
 });
