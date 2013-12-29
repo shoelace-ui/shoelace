@@ -21,6 +21,7 @@ program.on('--help', function() {
   console.log();
   console.log('    install       install local dependencies');
   console.log('    build         build the project');
+  console.log('    preview       serve a preview of the project styles');
   console.log();
   process.exit();
 });
@@ -40,10 +41,6 @@ var cmd = program.args[0];
 // help
 
 if (!cmd) program.help();
-
-// alias install
-
-if (cmd === 'install') cmd = 'build';
 
 // cmds
 

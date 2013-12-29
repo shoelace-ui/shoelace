@@ -1,0 +1,16 @@
+{
+  "name": "shoelace",
+  "repo": "shoelace-ui/shoelace",
+  "description": "Shoelace project manager",
+  "version": "0.0.1",
+  "keywords": [],
+  "dependencies": {
+    "mvanasse/lr": "*"
+  },
+  "development": {},
+  "license": "MIT",
+  "main": "index.js",
+  "scripts": [
+    "index.js"
+  ]
+}

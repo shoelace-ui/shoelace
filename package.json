@@ -6,7 +6,8 @@
   "bin": {
     "shoelace": "bin/shoelace",
     "shoelace-build": "bin/shoelace-build",
-    "shoelace-create": "bin/shoelace-create"
+    "shoelace-create": "bin/shoelace-create",
+    "shoelace-preview": "bin/shoelace-preview"
   },
   "scripts": {
     "test": "make test"
@@ -23,8 +24,13 @@
   "dependencies": {
     "commander": "~2.0.0",
     "component-builder": "~0.8.3",
-    "component-stylus": "~1.1.3",
-    "component": "~0.18.0"
+    "component-stylus": "git+https://github.com/mvanasse/component-stylus.git",
+    "component": "~0.18.0",
+    "win-fork": "~1.1.1",
+    "express": "~3.4.7",
+    "jade": "~1.0.1",
+    "stylus": "~0.41.3",
+    "nib": "~1.0.1"
   },
   "devDependencies": {
     "should": "~2.1.0",

@@ -1,0 +1,2 @@
+
+window.livereload = require('lr');

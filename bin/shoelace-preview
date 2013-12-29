@@ -1,0 +1,29 @@
+#!/usr/bin/env node
+
+/**
+ * Module dependencies.
+ */
+
+var program = require('commander');
+var server = require('../lib/server');
+var child = require('../lib/child');
+
+// options
+
+program
+  .option('-H, --headless', 'run server without opening a browser')
+  .option('-p, --port <port>', 'port for express server', 5555)
+  .option('-l, --lr-port <port>', 'port for livereload server', 8090)
+  .parse(process.argv);
+
+var app = server({
+  dir: 'preview',
+  view: 'index',
+  lr_port: program.lrPort
+});
+
+app.listen(program.port, function() {
+  var url = 'http://localhost:' + program.port;
+  console.log('server', 'listening on ' + url);
+  if (!program.headless) child('open', [url]);
+});
