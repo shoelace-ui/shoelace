@@ -44,6 +44,7 @@ child('component-install', []).next(function() {
 function build() {
    // load component plugins
   var plugins = [];
+  plugins.push(__dirname + '/../node_modules/simple-stack-ui/lib/nghtml');
   plugins.push(__dirname + '/../node_modules/component-stylus');
   if (program.preview) plugins.push(__dirname + '/../preview');
 

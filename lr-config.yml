@@ -1,0 +1,4 @@
+'preview/*.styl': '@shoelace build --preview'
+'stylesheets': '@shoelace build --preview'
+'build/*.css': ''
+'preview/*.jade': ''

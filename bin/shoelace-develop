@@ -1,0 +1,63 @@
+#!/usr/bin/env node
+
+/*
+ * Module dependencies.
+ */
+
+var program = require('commander');
+var child = require('../lib/child');
+var exec = require('child_process').exec;
+var fs = require('fs');
+var join = require('path').join;
+
+// options
+
+program
+  .option('-H, --headless', 'run server without opening a browser')
+  .option('-S, --start-port <port>', 'find the first open port after this [5000]', 5000)
+  .parse(process.argv);
+
+getPort(program.startPort);
+
+/*
+ * Find open port.
+ */
+
+function getPort(port, fn) {
+  exec('lsof -i :' + port + ' | wc -l', function(err, data) {
+    if (err) return console.error(err);
+    if (0 < data) return getPort(port + 5);
+    run(port);
+  });
+}
+
+/*
+ * Open a preview server and livereload server.
+ */
+
+function run(port) {
+  var lrPort = port + 5;
+  var headless = program.headless
+    ? '-H'
+    : '';
+  var preview = child('shoelace', [
+    'preview',
+      '-p', port,
+      '-l', lrPort,
+      headless
+  ]);
+
+  var lrConfig = join(process.cwd(), '.lr.yml');
+  var defaultConfig = join(__dirname, '../lr-config.yml');
+  fs.exists(lrConfig, function(exists){
+    lrConfig = exists
+      ? lrConfig
+      : defaultConfig;
+    child('lr', [
+      '-p', lrPort,
+      '-c', lrConfig,
+      '-s'
+    ]);
+  });
+}
+

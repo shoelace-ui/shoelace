@@ -7,7 +7,8 @@
     "shoelace": "bin/shoelace",
     "shoelace-build": "bin/shoelace-build",
     "shoelace-create": "bin/shoelace-create",
-    "shoelace-preview": "bin/shoelace-preview"
+    "shoelace-preview": "bin/shoelace-preview",
+    "shoelace-develop": "bin/shoelace-develop"
   },
   "scripts": {
     "test": "make test"
